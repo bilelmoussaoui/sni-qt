@@ -1,6 +1,9 @@
-sni-qt (0.2.7+17.04.20161211.2-ppa) zesty; urgency=medium
+sni-qt (0.2.7+17.04.20161211.2-ppaubuntu1) zesty; urgency=medium
 
-  * IconCache: Allow the usage of svg icons
+  * IconCache: Allow usage of svg icons
+
+ -- andreas <andreas@andreas-Lenovo-IdeaPad-U530-Touch>  Sun, 11 Dec 2016 09:15:29 +0100
+
 
 sni-qt (0.2.7+17.04.201612209.2-ppa) zesty; urgency=medium
 
