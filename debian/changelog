@@ -1,4 +1,4 @@
-sni-qt (0.2.7+20161212.2-ppa) zesty; urgency=medium
+sni-qt (0.2.7+20161212-ppa) zesty; urgency=medium
 
   * IconCache: Change changelog
 
