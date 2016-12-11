@@ -1,3 +1,7 @@
+sni-qt (0.2.7+17.04.20161211.2-ppa) zesty; urgency=medium
+
+  * IconCache: Allow the usage of svg icons
+
 sni-qt (0.2.7+17.04.201612209.2-ppa) zesty; urgency=medium
 
   * IconCache: Allow icon themes to theme sni-qt tray icons
