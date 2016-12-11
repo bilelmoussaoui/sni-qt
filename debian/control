@@ -1,0 +1,25 @@
+Source: sni-qt
+Section: x11
+Priority: optional
+Maintainer: Kubuntu Developers <kubuntu-devel@lists.ubuntu.com>
+Build-Depends: cmake,
+               debhelper (>= 9),
+               libdbusmenu-qt-dev,
+               libqt4-dev,
+               pkg-config,
+               qt4-qmake,
+               xvfb,
+Standards-Version: 3.9.2
+Homepage: https://launchpad.net/sni-qt
+# If you aren't a member of ~canonical-dx-team but need to upload packaging changes,
+# just go ahead.  ~canonical-dx-team will notice and sync up the code again.
+Vcs-Bzr: https://code.launchpad.net/~canonical-dx-team/sni-qt/trunk
+
+Package: sni-qt
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libqtcore4 (>= 4:4.7.3-1ubuntu3~), ${misc:Depends}, ${shlibs:Depends}
+Multi-Arch: same
+Description: indicator support for Qt
+ This plugin provides indicator support for Qt.  It allows applications
+ to export their systray transparently to the indicator system.

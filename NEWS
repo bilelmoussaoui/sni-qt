@@ -1,0 +1,55 @@
+# 0.2.6 - 2011.10.15
+- Abort initialization if temp dir for iconcache cannot be created (bug #874447).
+- Fix animated icons causing unity-panel-service to eat all CPU (bug #865601).
+
+# 0.2.5 - 2011.09.28
+- Prefix log output with pid of application.
+- Use a placeholder menu if there is none defined yet (Fix half of bug #860395).
+
+# 0.2.4 - 2011.09.26
+- Make sure GTK notices icon updates (bug #812884).
+- Prevent applications from stealing icons from each others (bug #850139).
+- Turn debug into a runtime option.
+
+# 0.2.3 - 2011.08.04
+- Log message when an "Activate" entry is added.
+- Load Qt translations ourself for the "Activate" entry.
+- Make sure we fallback to the English version of "Activate".
+- Move the config file from canonical/sni-qt.conf to sni-qt.conf.
+- Revert namespace'ification.
+
+# 0.2.2 - 2011.08.03
+- Add the ability to show an Activate entry to the menu if the app does not provide it.
+- Survive a restart of the StatusNotifierWatcher process.
+- Build with -fvisibility=hidden and move all classes into a SniQt namespace to
+  reduce risks of symbol clashes.
+- Rename _qt_sni_category to _sni_qt_category.
+- Touch the icon theme dir, so that GTK looks into it and find new icons.
+
+# 0.2.1 - 2011.08.02
+- Add build-time option to enable debug output
+- Document the _qt_sni_property hack
+
+# 0.2.0 - 2011.07.07
+- Added a triming feature to the icon cache to avoid flooding tmp dir
+- Added support for scroll events
+- Added manual tests, with a test program based on Qt systray example
+
+# 0.1.5 - 2011.07.01
+- Add LGPL license and Nokia LGPL exception.
+
+# 0.1.4 - 2011.06.27
+- Change license to LGPL 3
+- Add suppport for notifications
+
+# 0.1.3 - 2011.06.09
+- Change license to GPL 3
+
+# 0.1.2 - 2011.06.09
+- Fix copyright headers
+
+# 0.1.1 - 2011.06.09
+- Change license to LGPL 2.1
+
+# 0.1.0 - 2011.06.09
+- First release

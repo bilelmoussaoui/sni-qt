@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+%:
+	dh $@
+
+override_dh_auto_test:
+	xvfb-run dh_auto_test
+
+override_dh_makeshlibs:
+	dh_makeshlibs -Nsni-qt
+
+override_dh_install:
+	dh_install --fail-missing

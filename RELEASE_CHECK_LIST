@@ -1,0 +1,29 @@
+# Verify copy is clean and up to date
+bzr st
+bzr pull
+
+# Update NEWS
+vi NEWS
+r!bzr log --line -r tag:x.y.z-1..
+
+# Bump version number in CMakeLists.txt
+vi CMakeLists.txt
+
+# Commit
+bzr ci
+
+# Create and test tarball
+make distcheck
+
+# Run manual tests
+view tests/manual/TESTS
+
+# If ok, create tag
+tag=x.y.z
+bzr tag $tag
+
+# Push
+bzr push
+
+# Upload tarball
+lp-project-upload sni-qt $tag sni-qt-$tag.tar.bz2

@@ -1,0 +1,140 @@
+sni-qt (0.2.7+17.04.201612209.2-ppa) zesty; urgency=medium
+
+  * IconCache: Allow icon themes to theme sni-qt tray icons
+
+
+sni-qt (0.2.7+17.04.20161124.2-0ubuntu1) zesty; urgency=medium
+
+  * statusnotifieritem: reset app usertime on activation to ensure
+    compiz will raise it (LP: #627195)
+  * IconCache: get the proper theme path based on the fact we're using a
+    themed icon or not (LP: #1600136)
+
+ -- Marco Trevisan (Treviño) <mail@3v1n0.net>  Thu, 24 Nov 2016 18:38:52 +0000
+
+sni-qt (0.2.7+15.10.20150729-0ubuntu1) wily; urgency=low
+
+  [ Robert Bruce Park ]
+  * Inline packaging metadata.
+  * This builds off of robru's work in lp:~robru/sni-qt/inline-
+    packaging, with the following changes: raring->UNRELEASED Don't
+    bother setting gensymbols flag, we don't use symbols Run all tests,
+    using xvfb.
+
+  [ Didier Roche ]
+  * Automatic snapshot from revision 93 (bootstrap)
+
+  [ Alberts Muktupāvels ]
+  * Fix RegisterStatusNotifier method call to match specification.
+
+  [ Aurelien Gateau ]
+  * Add Qt patch added: patches/ patches/qsystemtrayicon-plugin-system-
+    4.7.4.diff
+  * Use an icon in systray menu
+
+  [ Aurélien Gâteau ]
+  * Update maintainer
+
+  [ Dmitry Shachnev ]
+  * Fix pixmap types in org.kde.StatusNotifierItem.xml.
+
+  [ Michael Terry ]
+  * This builds off of robru's work in lp:~robru/sni-qt/inline-
+    packaging, with the following changes: raring->UNRELEASED Don't
+    bother setting gensymbols flag, we don't use symbols Run all tests,
+    using xvfb.
+
+ -- CI Train Bot <ci-train-bot@canonical.com>  Wed, 29 Jul 2015 17:00:47 +0000
+
+sni-qt (0.2.6-0ubuntu1) quantal; urgency=low
+
+  * New upstream release (lp: #1020419).
+  * debian/patches/do-not-delete-cwd-if-tmp-dir-is-not-writable.diff,
+    debian/patches/do-not-eat-cpu-with-animated-icons.diff:
+    - dropped, the patches are in the new version
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Tue, 31 Jul 2012 13:19:47 +0200
+
+sni-qt (0.2.5-0ubuntu3) oneiric-proposed; urgency=low
+
+  * Backport r88.1.4 from upstream trunk: avoid causing unity-panel-service to
+    eat all CPU when an application uses an animated icon (LP: #865601)
+
+ -- AurÃ©lien GÃ¢teau <aurelien.gateau@ubuntu.com>  Tue, 25 Oct 2011 15:52:35 -0400
+
+sni-qt (0.2.5-0ubuntu2) oneiric-proposed; urgency=high
+
+  * Backport r91 from upstream trunk: prevent deletion of cwd if tmp dir is not
+    writable (LP: #874447)
+
+ -- Aurélien Gâteau <aurelien.gateau@ubuntu.com>  Sat, 15 Oct 2011 16:08:57 +0200
+
+sni-qt (0.2.5-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release.
+    - Prefix log output with pid of application.
+    - Use a placeholder menu if there is none defined yet (LP: #860395)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Wed, 28 Sep 2011 12:24:50 +0200
+
+sni-qt (0.2.4-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release.
+    - Make sure GTK notices icon updates (LP: #812884).
+    - Prevent applications from stealing icons from each others (LP: #850139)
+    - Turn debug into a runtime option.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Mon, 26 Sep 2011 11:17:11 +0200
+
+sni-qt (0.2.2-0ubuntu3) oneiric; urgency=low
+
+  * Multi-Arch support (LP: #838470).
+  * Update Vcs-Bzr url.
+
+ -- Aurélien Gâteau <aurelien.gateau@canonical.com>  Wed, 07 Sep 2011 18:53:05 +0200
+
+sni-qt (0.2.2-0ubuntu2) oneiric; urgency=low
+
+  * debian/sni-qt.conf:
+    - add clementine and speedcrunch whitelist for activate entry (LP: #842752)
+  * debian/rules:
+    - remove the verbose mode, sni-qt seems to work quite well :)
+
+ -- Didier Roche <didrocks@ubuntu.com>  Tue, 06 Sep 2011 18:03:18 +0200
+
+sni-qt (0.2.2-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release:
+    - Add the ability to show an Activate entry to the menu if the app does not
+      provide it.
+    - Survive a restart of the StatusNotifierWatcher process.
+    - Build with -fvisibility=hidden and move all classes into a SniQt
+      namespace to reduce risks of symbol clashes.
+    - Rename _qt_sni_category to _sni_qt_category.
+    - Touch the icon theme dir, so that GTK looks into it and find new icons.
+    - Add build-time option to enable debug output
+    - Document the _qt_sni_property hack
+  * Cherry-pick some upstream commits to get a better localtion of sni-qt.conf
+    file and translation fixes when the Qt app doesn't load it properly
+  * debian/rules:
+    - Add -DSNI_DEBUG_OUTPUT to get some debug info
+  * debian/sni-qt.conf, debian/sni-qt.install:
+    - List Mumble and skype as candidate for "activate" entry menu
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 04 Aug 2011 14:56:54 +0200
+
+sni-qt (0.2.0-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release.
+  * debian/copyright:
+    - add the BSD notice for new example files
+  * debian/rules:
+    - auto tests changed their location
+
+ -- Didier Roche <didrocks@ubuntu.com>  Thu, 07 Jul 2011 18:10:35 +0200
+
+sni-qt (0.1.5-0ubuntu1) oneiric; urgency=low
+
+  * Initial package
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 01 Jul 2011 16:56:24 +0200
