@@ -50,7 +50,6 @@ StatusNotifierItemFactory::StatusNotifierItemFactory()
         return;
     }
     SNI_VAR(m_iconCacheDir);
-    qCritical("iconcache is called");
     m_iconCache = new IconCache(m_iconCacheDir, this);
     QDBusServiceWatcher* snwWatcher = new QDBusServiceWatcher(this);
     snwWatcher->addWatchedService(SNW_SERVICE);
