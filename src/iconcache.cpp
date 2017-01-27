@@ -26,6 +26,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include <QDir>
+#include <QSettings>
 #include <QList>
 
 const int IconCache::MaxIconCount = 20;
@@ -47,6 +48,8 @@ static QString computeKeyForIcon(const QIcon& icon)
         .arg(QCoreApplication::applicationFilePath().section('/', -1))
         .arg(QCoreApplication::applicationPid());
 
+    QString homedirname = QDir::homePath();
+    QString configfile = QString(homedirname + "/.local/share/sni-qt/sni-qt.conf");
     // Get a sorted list of extents
     QList<int> extents;
     Q_FOREACH(const QSize& size, icon.availableSizes()) {
@@ -68,6 +71,19 @@ static QString computeKeyForIcon(const QIcon& icon)
     } while (testExtent <= 32 && it != end);
 
     QByteArray hash = hashForPixmap(extents, icon.pixmap(testExtent));
+
+    QSettings settings(configfile, QSettings::IniFormat);
+    QString appname = QCoreApplication::applicationFilePath().section('/', -1);
+    settings.beginGroup(appname);
+    const QStringList childKeys = settings.childKeys();
+    Q_FOREACH (const QString& childKey, childKeys){
+        QString value = QString("%1").arg(settings.value(childKey).toString());
+        if (QIcon::hasThemeIcon(value))
+            {
+                return value;
+            }
+        }
+    settings.endGroup();
 
     return prefix + QString::fromAscii(hash);
 }
@@ -108,21 +124,20 @@ QString IconCache::nameForIcon(const QIcon& icon) const
 
     QString key = computeKeyForIcon(icon);
     QStringList::iterator it = qFind(m_cacheKeys.begin(), m_cacheKeys.end(), key);
-    if (it == m_cacheKeys.end()) {
+    if (it == m_cacheKeys.begin()) {
         cacheIcon(key, icon);
         trimCache();
     } else {
         // Place key at the end of list as it is the most recently accessed
+        
         m_cacheKeys.erase(it);
         m_cacheKeys.append(key);
     }
-
     return key;
 }
 
 void IconCache::trimCache() const
-{
-    QDir dir(m_themePath + "/hicolor");
+{   QDir dir(m_themePath + "/hicolor");
     dir.setFilter(QDir::Dirs);
 
     while (m_cacheKeys.count() > MaxIconCount) {
@@ -139,6 +154,10 @@ void IconCache::trimCache() const
 
 void IconCache::cacheIcon(const QString& key, const QIcon& icon) const
 {
+    if (QIcon::hasThemeIcon(key))
+    {
+        return;
+    }
     QList<QSize> sizes = icon.availableSizes();
     if (sizes.isEmpty()) {
         // sizes can be empty if icon is an SVG. In this case generate images for a few sizes
@@ -150,45 +169,10 @@ void IconCache::cacheIcon(const QString& key, const QIcon& icon) const
             ;
         #undef SIZE
     }
-
     QDir dir(m_themePath);
     Q_FOREACH(const QSize& size, sizes) {
-        QPixmap pix;
-        bool abort = false;
-        QStringList parts = key.split("_");
-        QString homedirname = QDir::homePath();
-
-        QSize theme_size = size;
-        QList<QSize> sizes_theme;
-        sizes_theme 
-            << QSize(16, 16)
-            << QSize(22, 22)
-            << QSize(24, 24)
-            ;
-        
-        Q_FOREACH(const QSize& size_theme, sizes_theme) {
-            QString icon_folder = QString(homedirname + "/.local/share/sni-qt/icons/%1/%2/").arg(parts[0]).arg(size_theme.width());
-            if (dir.exists(icon_folder)){
-                theme_size = size_theme;
-                break;
-                } 
-        }
-        QString injectionIconFilename = QString(homedirname + "/.local/share/sni-qt/icons/%1/%2/%3.png").arg(parts[0]).arg(theme_size.width()).arg(parts[2]);
-        QString injectionIconFilenamesvg = QString(homedirname + "/.local/share/sni-qt/icons/%1/%2/%3.svg").arg(parts[0]).arg(theme_size.width()).arg(parts[2]);
-
-        if (QFile::exists(injectionIconFilenamesvg)){
-            pix = QIcon(injectionIconFilenamesvg).pixmap(theme_size);
-            abort = true;
-            }
-        else if (QFile::exists(injectionIconFilename)){
-            pix = QIcon(injectionIconFilename).pixmap(theme_size);
-            abort = true;
-            }
-        else{
-            theme_size = size;
-            pix = icon.pixmap(size);
-            }
-        QString dirName = QString("hicolor/%1x%1/apps").arg(theme_size.width());
+        QPixmap pix = icon.pixmap(size);
+        QString dirName = QString("hicolor/%1x%1/apps").arg(size.width());
         if (!dir.exists(dirName)) {
             if (!dir.mkpath(dirName)) {
                 qWarning("Could not create '%s' dir in '%s'",
@@ -196,15 +180,11 @@ void IconCache::cacheIcon(const QString& key, const QIcon& icon) const
                 continue;
             }
         }
-        QImage img = pix.toImage();
         QString pixPath = QString("%1/%2/%3.png")
             .arg(m_themePath).arg(dirName).arg(key);
-        if (!img.save(pixPath, "png")) {
+        if (!pix.save(pixPath, "png")) {
             qWarning("Could not save icon as '%s'", qPrintable(pixPath));
         }
-        if (abort)
-            break;
-            
     }
 
     m_cacheKeys << key;

@@ -116,6 +116,9 @@ void StatusNotifierItem::updateVisibility()
 void StatusNotifierItem::updateIcon()
 {
     SNI_DEBUG;
+    QIcon newicon;
+    //newicon.fromTheme('edit-undo');
+    //trayIcon.swap(newicon);
     NewIcon();
     // ToolTip contains the icon
     NewToolTip();
@@ -217,7 +220,6 @@ QString StatusNotifierItem::iconName() const
     if (!name.isEmpty()) {
         return name;
     }
-
     return m_iconCache->nameForIcon(icon);
 }
 
