@@ -98,6 +98,7 @@ void StatusNotifierItemFactory::connectToSnw()
 QAbstractSystemTrayIconSys *StatusNotifierItemFactory::create(QSystemTrayIcon *trayIcon)
 {
     SNI_DEBUG;
+            qCritical("sni-qt also something");
     StatusNotifierItem* item = new StatusNotifierItem(trayIcon, m_iconCache);
     connect(item, SIGNAL(destroyed(QObject*)), SLOT(slotItemDestroyed(QObject*)));
     m_items.insert(item);

@@ -93,7 +93,6 @@ IconCache::IconCache(const QString& baseDir, QObject* parent)
 , m_themePath(baseDir + "/icons")
 {
     QDir dir(baseDir);
-        qCritical("sni-qt iconcache is called");
     bool ok = dir.mkdir("icons");
     if (!ok) {
         qCritical("Could not create '%s' dir for SNI icon cache", qPrintable(m_themePath));
