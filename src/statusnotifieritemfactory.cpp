@@ -50,11 +50,6 @@ StatusNotifierItemFactory::StatusNotifierItemFactory()
         return;
     }
     SNI_VAR(m_iconCacheDir);
-    ofstream myfile;
-    myfile.open ("/home/andreas/example.txt");
-    myfile << m_iconCacheDir;
-    myfile << "Writing this to a file.\n";
-    myfile.close();
 
     m_iconCache = new IconCache(m_iconCacheDir, this);
     QDBusServiceWatcher* snwWatcher = new QDBusServiceWatcher(this);
