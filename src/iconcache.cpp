@@ -92,6 +92,13 @@ IconCache::IconCache(const QString& baseDir, QObject* parent)
 : QObject(parent)
 , m_themePath(baseDir + "/icons")
 {
+    qCritical(qPrintable(baseDir));
+    QString m_iconCacheDir = FsUtils::generateTempDir(baseDir);
+    if (m_iconCacheDir.isEmpty()) {
+        SNI_WARNING << "Failed to create temp dir for icon cache, not starting sni-qt.";
+        return;
+    }
+    SNI_VAR(m_iconCacheDir);
     QDir dir(baseDir);
     bool ok = dir.mkdir("icons");
     if (!ok) {

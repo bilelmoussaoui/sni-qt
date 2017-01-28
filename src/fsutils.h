@@ -24,7 +24,9 @@ class QDateTime;
 
 namespace FsUtils {
 
-QString generateTempDir(const QString& prefix);
+QString generateTempDir(const QString& tempfilename);
+
+QString getTempDirName(const QString& prefix);
 
 bool recursiveRm(const QString& dirName);
 

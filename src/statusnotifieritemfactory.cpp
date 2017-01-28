@@ -44,12 +44,7 @@ StatusNotifierItemFactory::StatusNotifierItemFactory()
     QString tempSubDir = QString("sni-qt_%1_%2")
         .arg(QCoreApplication::applicationFilePath().section('/', -1))
         .arg(QCoreApplication::applicationPid());
-    m_iconCacheDir = FsUtils::generateTempDir(tempSubDir);
-    if (m_iconCacheDir.isEmpty()) {
-        SNI_WARNING << "Failed to create temp dir for icon cache, not starting sni-qt.";
-        return;
-    }
-    SNI_VAR(m_iconCacheDir);
+    m_iconCacheDir = FsUtils::getTempDirName(tempSubDir);
     m_iconCache = new IconCache(m_iconCacheDir, this);
     QDBusServiceWatcher* snwWatcher = new QDBusServiceWatcher(this);
     snwWatcher->addWatchedService(SNW_SERVICE);

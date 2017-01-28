@@ -30,7 +30,7 @@
 
 namespace FsUtils {
 
-QString generateTempDir(const QString& prefix)
+QString getTempDirName(const QString& prefix)
 {
     QDir dir;
 
@@ -46,23 +46,27 @@ QString generateTempDir(const QString& prefix)
 
         dir.setPath(path);
     }
+    
+    QString tmpl = QDir::cleanPath(dir.path() + '/' + prefix);
+    QByteArray tempfilename = QFile::encodeName(tmpl);
 
-    if (!dir.mkpath(".")) {
-        qCritical("Failed to generate temporary file for prefix %s: could not create %s",
-            qPrintable(prefix), qPrintable(dir.path()));
-        return QString();
-    }
+    return QFile::encodeName(tempfilename);
+}
 
-    QString tmpl = QDir::cleanPath(dir.path() + '/' + prefix + "-XXXXXX");
-    QByteArray ba = QFile::encodeName(tmpl);
-    const char* name = mkdtemp(ba.data());
+
+QString generateTempDir(const QString& tempfilename)
+{
+    QByteArray tmpl = QFile::encodeName(tempfilename);
+    const char* name = mkdtemp(tmpl.data());
+    
     if (!name) {
         qCritical("Failed to generate temporary file for prefix %s: %s",
-            qPrintable(prefix), strerror(errno));
+            qPrintable(name), strerror(errno));
         return QString();
     }
     return QFile::encodeName(name);
 }
+
 
 bool recursiveRm(const QString& dirName)
 {
