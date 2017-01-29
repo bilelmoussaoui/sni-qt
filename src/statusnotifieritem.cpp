@@ -116,9 +116,6 @@ void StatusNotifierItem::updateVisibility()
 void StatusNotifierItem::updateIcon()
 {
     SNI_DEBUG;
-    QIcon newicon;
-    //newicon.fromTheme('edit-undo');
-    //trayIcon.swap(newicon);
     NewIcon();
     // ToolTip contains the icon
     NewToolTip();
