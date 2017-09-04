@@ -1,0 +1,9 @@
+dist: trusty
+sudo: required
+before_install:
+  - sudo apt-get -y update
+  - sudo apt-get install -y cmake libdbusmenu-qt-dev gcc libqt4-dev
+install:
+  - cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ../
+  - make
+  - sudo make install
