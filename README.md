@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bil-elmoussaoui/sni-qt.svg?branch=master)](https://travis-ci.org/bil-elmoussaoui/sni-qt)
+
 # Summary
 
 This plugin makes Qt applications use the StatusNotifierItem (SNI) protocol for
