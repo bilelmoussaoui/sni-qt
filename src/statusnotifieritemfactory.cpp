@@ -30,6 +30,8 @@
 #include <QDBusServiceWatcher>
 #include <QDebug>
 #include <QtPlugin>
+#include <fstream>
+using namespace std;
 
 static const char *SNW_SERVICE = "org.kde.StatusNotifierWatcher";
 static const char *SNW_IFACE   = "org.kde.StatusNotifierWatcher";
@@ -48,7 +50,6 @@ StatusNotifierItemFactory::StatusNotifierItemFactory()
         return;
     }
     SNI_VAR(m_iconCacheDir);
-
     m_iconCache = new IconCache(m_iconCacheDir, this);
     QDBusServiceWatcher* snwWatcher = new QDBusServiceWatcher(this);
     snwWatcher->addWatchedService(SNW_SERVICE);

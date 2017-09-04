@@ -217,7 +217,6 @@ QString StatusNotifierItem::iconName() const
     if (!name.isEmpty()) {
         return name;
     }
-
     return m_iconCache->nameForIcon(icon);
 }
 
