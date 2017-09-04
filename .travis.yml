@@ -1,5 +1,6 @@
 dist: trusty
 sudo: required
+language: cpp
 before_install:
   - sudo apt-get -y update
   - sudo apt-get install -y cmake libdbusmenu-qt-dev gcc libqt4-dev
